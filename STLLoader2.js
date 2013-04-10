@@ -65,7 +65,7 @@
                 function onloaded( event ) {
                 
                     if ( event.target.status === 200 || event.target.status === 0 ) {
-                            
+                            var data = event.target.responseText;
                             return scope.dispatchEvent({
                                 type: 'load',
                                 content: scope.parse(data)
@@ -102,8 +102,8 @@
             var isBinary,
                 _this = this;
             isBinary = function (data) {
-                // Is this safer then the previous check which is checking is 
-                // solid is at the start of ASCII file
+                // TODO: Is this safer then the previous check which is checking 
+                // if solid is at the start of ASCII file???
                 var expect, face_size, n_faces, reader;
                 reader = new BinaryReader(data);
                 reader.seek(80);
@@ -147,10 +147,12 @@
                 }
                 attr = reader.readUInt16();
                 length = geometry.vertices.length;
+                /*
                 v1 = new THREE.Vector3().subVectors(geometry.vertices[length - 3], geometry.vertices[length - 2]);
                 v2 = new THREE.Vector3().subVectors(geometry.vertices[length - 3], geometry.vertices[length - 1]);
                 newNormal = new THREE.Vector3().crossVectors(v1, v2).normalize();
-                return geometry.faces.push(new THREE.Face3(length - 3, length - 2, length - 1, newNormal));
+                */
+                return geometry.faces.push(new THREE.Face3(length - 3, length - 2, length - 1, normal));
             };
             for (face = _i = 0; 0 <= n_faces ? _i < n_faces : _i > n_faces; face = 0 <= n_faces ? ++_i : --_i) {
                 _fn(face);
@@ -176,10 +178,12 @@
                     geometry.vertices.push(new THREE.Vector3(parseFloat(result[1]), parseFloat(result[3]), parseFloat(result[5])));
                 }
                 length = geometry.vertices.length;
+                /*
                 v1 = new THREE.Vector3().subVectors(geometry.vertices[length - 3], geometry.vertices[length - 2]);
                 v2 = new THREE.Vector3().subVectors(geometry.vertices[length - 3], geometry.vertices[length - 1]);
                 newNormal = new THREE.Vector3().crossVectors(v1, v2).normalize();
-                geometry.faces.push(new THREE.Face3(length - 3, length - 2, length - 1, newNormal));
+                */
+                geometry.faces.push(new THREE.Face3(length - 3, length - 2, length - 1, normal));
             }
             geometry.computeCentroids();
             geometry.computeBoundingBox();
