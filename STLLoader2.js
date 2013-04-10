@@ -86,7 +86,7 @@ THREE.STLLoader.prototype.parseBinary = function (data) {
             return Object(result) === result ? result : child;
         })(THREE.Vector3, readFloat3(), function () {});
         for (_j = 1; _j <= 3; _j++) {
-            /*geometry.vertices.push((function (func, args, ctor) {
+            geometry.vertices.push((function (func, args, ctor) {
                 ctor.prototype = func.prototype;
                 var child = new ctor(),
                     result = func.apply(child, args);
